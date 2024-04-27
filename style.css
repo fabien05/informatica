@@ -1,0 +1,187 @@
+:root {
+    --rfontsize: 16px;
+    --txtcolor: black;
+    --lineheight: 1.3;
+
+    --boxshadow: 0 0 1rem rgba(0, 0, 0, 0.75);
+    --imgshadow: 0.5rem 0.2rem 1rem rgba(0, 0, 0, 0.55);
+
+    --backgroundcolor: #9c9c9c;
+    --boxcolor: #d2d2d2;
+
+    --borderradius: 10px;
+    --border: 2px solid rgba(255, 255, 255, 0.5);
+
+} 
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body,
+html {
+    background-color: var(--backgroundcolor);
+    color: var(--txtcolor);
+    font-family: 'Nunito', sans-serif;
+    font-size: var(--rfontsize);
+    line-height: var(--lineheight);
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    padding: 7rem 2rem 7rem 2rem;
+    margin: 0;
+    text-align: center;
+
+}
+
+.content {
+    margin: 0 auto;
+    padding: 1rem 1rem 2rem 1rem;
+    max-width: 1200px;
+    width: 100%;
+}
+
+.box,
+.foot {
+    background: var(--boxcolor);
+    border-radius: var(--borderradius);
+    border: var(--border);
+    line-height: var(--lineheight);
+    box-shadow: var(--boxshadow);
+
+}
+
+.box {
+    margin: 0 0 1rem 0;
+    padding: 2rem;
+    text-align: center;
+}
+
+.foot {
+    margin: 2rem 0 1rem 0;
+    padding: 0.5rem  2rem 0.5rem  2rem;
+    text-align: left;
+}
+
+.txtitalic {
+    font-style: italic;
+}
+
+.underline {
+    border-bottom: var(--border);
+}
+
+.alignright {
+    text-align: right;
+}
+
+.aligncenter {
+    text-align: center;
+}
+
+
+
+.header h1 {               /*titolo sito*/
+    font-size: 3.5rem;
+    margin: 1rem 0 2rem 0;      
+}
+
+.header h2 {              /*sottotitolo sito*/
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+.box h1 {                 /*titolo box*/
+    font-size: 3.2rem;
+    margin: 0;
+    text-align: left;
+}
+
+.sottot {                 /*sottotitolo box*/
+    font-size: 1.5rem;
+    font-weight: normal;
+    margin: 2rem 0 0 0;
+    text-align: left;
+}
+
+.box h2 {                 /*titolo paragrafo*/
+    font-size: 2.2rem;
+    margin: 2rem 0 0 0;
+    border-bottom: var(--border);
+    text-align: left;
+
+}
+
+.paragrafo {                 /*paragrafo*/
+    font-size: 1.4rem;
+    font-weight: normal;
+    margin: 2rem 0 0 0;
+    text-align: left;
+}
+
+.box ul { 
+    padding-left: 2.5rem;
+}
+
+
+/* immagini */
+
+.box figure{
+    padding-top: 0;
+    margin: 0;
+}
+
+.box figure img {
+    margin: 2rem 0 0 0;
+    width: 50%;
+    max-width: 100%;
+    height: auto;
+    box-shadow: var(--imgshadow);   
+
+}
+
+.box figure figcaption {
+    padding: 0 0.3rem 0 0.3rem;
+    border-bottom-left-radius: var(--borderradius);
+
+}
+
+.box figure figcaption p {
+    padding: 0;
+    margin: 0;
+    font-size: 1rem;
+}
+
+/*navbar*/
+
+.navbar {
+    background-color: #757575; 
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+.navbar ul {
+    list-style-type: none;
+    display: flex;
+    gap: 1rem;
+}
+
+.navbar li {
+    font-size: 1.2rem;
+}
+
+.navbar a {
+    color: var(--txtcolor);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.navbar a:hover {
+    color: #007bff; /* Colore per il link al passaggio del mouse */
+}
