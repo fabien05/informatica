@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finite Difference Method</title>
+    <meta name="author" content="Fabio Fregolent">
+
+    <link rel="icon" href="">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="script.js"></script>
+	
+    <link href="prism/prism-default.css" rel="stylesheet" />
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</head>
+<body>
+    <nav class="navbar">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="Stokes.html">Stokes' law</a></li>
+            <li><a href="eulerian.html">Eulerian Fluid</a></li>
+            <li><a href="finitediff.html">Finite difference</a></li>
+            <!-- Aggiungi altre voci della navbar se necessario -->
+        </ul>
+    </nav>
+    
+    <header class="header">
+        
+        <div> 
+            <h1>Differential Equations and the Finite Difference Method</h1>
+        </div>
+
+    </header>
+
+    <section class="content">
+        <div class="box">
+            <h2>Taylor series</h2>
+            <div class="paragrafo">
+                <p>Consider the Taylor series expansion of function \(f(x)\):</p>
+                <p>$$\begin{align*}
+                    f(x) &= \sum_{n=0}^{\infty} \frac{f^{(n)}(x_0)}{n!} (x - x_0)^n = \\
+                    &= f(x_0) + f'(x_0)(x-x_0) + \frac{f''(x_0)}{2!}(x-x_0)^2 + \frac{f'''(x_0)}{3!}(x-x_0)^3 + \cdots
+                \end{align*}$$
+                </p>  
+            </div>
+
+            <h2>Approximation of Derivative</h2>
+            <figure>
+                <img style="width: 100%;" src="imgs/diff.PNG" alt="">
+            </figure>
+
+            <h2>Forward difference</h2>
+            <div class="paragrafo">
+                <p>Assuming \(x=x_0+h\), where \(h\) represents a small increment from \(x_0\) we obtain: </p>
+                <p>$$\begin{align*}
+                    & f(x_0 + h) = f(x_0) + f'(x_0)h + \frac{f^{(2)}(x_0)}{2!}h^2 + \frac{f^{(3)}(x_0)}{3!}h^3 + \frac{f^{(4)} (x_0)}{4!}h^4 +\cdots & \text{(1)}
+                    \end{align*}$$
+                </p>
+                <p>Rearranging the terms, we obtain:</p>
+                <p>$$ \frac{f(x_0 + h)-f(x_0)}{h} = f'(x_0) + \frac{f^{(2)}(x_0)}{2!}h + \frac{f^{(3)}(x_0)}{3!}h^2 + \frac{f^{(4)} (x_0)}{4!}h^3 +\cdots$$</p>
+                <p>That is to say:</p>
+                <p>$$ \frac{f(x_0 + h)-f(x_0)}{h} = f'(x_0) + O(h)$$</p>
+            
+            </div>
+
+            <h2>Backward difference</h2>
+            <div class="paragrafo">
+                <p>Assuming \(x=x_0-h\), where \(h\) represents a small increment from \(x_0\) we obtain: </p>
+                <p>$$\begin{align*}
+                    & f(x_0 - h) = f(x_0) - f'(x_0)h + \frac{f^{(2)}(x_0)}{2!}h^2 - \frac{f^{(3)}(x_0)}{3!}h^3 + \frac{f^{(4)} (x_0)}{4!}h^4 -\cdots & \text{(2)}
+                    \end{align*}$$
+                </p>
+                <p>Rearranging the terms, we obtain:</p>
+                <p>$$ \frac{f(x_0)-f(x_0 - h)}{h} = f'(x_0) - \frac{f^{(2)}(x_0)}{2!}h + \frac{f^{(3)}(x_0)}{3!}h^2 - \frac{f^{(4)} (x_0)}{4!}h^3 +\cdots$$</p>
+                <p>That is to say:</p>
+                <p>$$ \frac{f(x_0)-f(x_0 - h)}{h} = f'(x_0) + O(h)$$</p>
+            </div>
+
+            <h2>Central difference</h2>
+            <div class="paragrafo">
+                <p>Finally, the central difference is given by:</p>
+                <p>$$ \frac{f(x_0+h)-f(x_0-h)}{2h}$$ </p>
+                <p>whose numerator is given by the difference \((1)-(2)\). In this way we obtain: </p>
+                <p>$$ \frac{f(x_0+h)-f(x_0-h)}{2h}= f'(x_0) + \frac{f^{(3)}(x_0)}{3!}h^2 +  \frac{f^{(5)}(x_0)}{5!}h^4 +\cdots$$</p>
+                <p>That is to say:</p>
+                <p>$$ \frac{f(x_0+h)-f(x_0-h)}{2h}= f'(x_0) + O(h^2)$$</p>
+            </div>
+        </div>
+
+        <div class="box">
+            <h2>Second derivative - Three-point Central Difference Formula</h2>
+            <div class="paragrafo">
+                <p>If we add (1) and (2) together we obtain:</p>
+                <p>$$ f(x_0 + h) + f(x_0 - h) = 2f(x_0) + 2\frac{f^{(2)}(x_0)}{2!}h^2 + 2\frac{f^{(4)}(x_0)}{4!}h^4 + \cdots$$</p>
+                <p>If we solve it for \(f^{(2)}(x_0)\) we obtain:</p>
+                <p>$$ f^{(2)}(x_0) = \frac{f(x_0 + h) - 2f(x_0) + f(x_0 - h)}{h^2} + O(h^2)$$</p>
+            </div>
+        </div>
+
+        <div class="box">
+            <h2>Example</h2>
+            <div class="paragrafo">
+                <p>Utilizing the backward and forward difference, we numerically solve the equation $$y'=y$$ with the initial condition y(0)=0. We know that the analytical solution is \(y(x)=e^x\), but let's comapare it whith the numerical solutions.</p>
+                <br>
+                <p>First of all we set \(x_{i+1}=x_i+h\) and \(y(x_i)=y_i\)</p>
+                <br>
+                <ul>
+                    <li>Using Forward difference we have: $$y_i=y_{i-1}(h+1)$$</li>
+                    <li>Using Backward difference we have: $$ y_i=\frac{y_{i-1}}{(1-h)}$$</li>
+                </ul>
+            </div>
+            <h2>Python Code</h2>
+            <pre><code class="language-python">
+    import numpy as np
+    import matplotlib.pyplot as plt
+    import math
+    
+    end = 10.0  # final x
+    n = 1000  # iterations
+    h = end / n  # integration step
+    
+    y_0 = 1  # start condition
+    
+    # Lists
+    for_values = [y_0]
+    back_values = [y_0]
+    analitical_values = [y_0]
+    h_values = [0]
+    
+    for i in range(1, n + 1):
+        f_new = for_values[i - 1] * (h + 1)
+        b_new = back_values[i - 1] / (1 - h)
+        h_new = i * h
+        a_new = math.pow(math.e, h_new)
+    
+        h_values.append(h_new)
+        for_values.append(f_new)
+        back_values.append(b_new)
+        analitical_values.append(a_new)
+    
+    for_values = np.array(for_values)
+    back_values = np.array(back_values)
+    analitical_values = np.array(analitical_values)
+    h_values = np.array(h_values)
+    
+    # Plot diagram
+    plt.figure(figsize=(15, 5))
+    plt.plot(h_values, analitical_values, label='Analytical', color='blue')
+    plt.plot(h_values, for_values, label='Forward', color='green')
+    plt.plot(h_values, back_values, label='Backward', color='red')
+    
+    plt.xlabel('x')
+    plt.ylabel('y')
+    plt.title('n steps (h = end / n)')
+    plt.legend()
+    plt.grid(True)
+    plt.show()
+            </code></pre>
+
+            <h2>The outputs</h2>
+            <figure>
+                <img style="width: 75%;" src="imgs/50steps.png" alt="">
+            </figure>
+            <figure>
+                <img style="width: 75%;" src="imgs/1000steps.png" alt="">
+            </figure>
+        
+        </div>
+
+        <div class="box">
+            <h2>Example</h2>
+            <div class="paragrafo">
+                <p>Utilizing the backward, forward and central difference, we numerically find $$y(x)=D(sin(x))$$We know that the analytical solution is \(y(x)=cos(x)\), but let's comapare it whith the numerical solutions.</p>
+            </div>
+            <h2>Python Code</h2>
+            <pre><code class="language-python">
+    import numpy as np
+    import matplotlib.pyplot as plt
+    import math
+
+    end = 4.0  # final x
+    n = 100  # iterations
+    h = end / n  # integration step
+
+    # Lists
+    for_values = [y_0]
+    back_values = [y_0]
+    central_values = [y_0]
+    analitical_values = [y_0]
+    h_values = [0]
+
+    for i in range(1, n + 1):
+        h_new = h*i
+        f_new = ( math.sin(h_new+h) - math.sin(h_new) ) / h
+        b_new = ( math.sin(h_new) - math.sin(h_new - h) ) / h
+        c_new = ( math.sin(h_new + h) - math.sin(h_new - h)) / (2*h)
+        a_new = math.cos(h_new)
+        
+        for_values.append(f_new)
+        back_values.append(b_new)
+        central_values.append(c_new)
+        analitical_values.append(a_new)  
+        h_values.append(h_new)
+
+    for_values = np.array(for_values)
+    back_values = np.array(back_values)
+    central_values = np.array(central_values)
+    analitical_values = np.array(analitical_values)
+    h_values = np.array(h_values)
+
+    # Plot diagram
+    plt.figure(figsize=(15, 10))
+    plt.plot(h_values, analitical_values, label='Analytical', color='blue')
+    plt.plot(h_values, for_values, label='Forward', color='green')
+    plt.plot(h_values, back_values, label='Backward', color='red')
+    plt.plot(h_values, central_values, label='Central', color='yellow')
+
+
+    plt.xlabel('x')
+    plt.ylabel('y')
+    plt.title('n steps (h = end / n)')
+    plt.legend()
+    plt.grid(True)
+    plt.show()
+            </code></pre>
+            <h2>The outputs</h2>
+            <figure>
+                <img style="width: 75%;" src="imgs/cos16.png" alt="">
+            </figure>
+            <figure>
+                <img style="width: 75%;" src="imgs/cos100.png" alt="">
+            </figure>
+        </div>
+            
+
+        <div class="box">
+            <h2>Appendix - Big <em>O</em> notation</h2>
+        </div>
+    </section>
+    
+
+
+
+    <script src="prism/prism-default.js"></script>
+</body>
+</html>

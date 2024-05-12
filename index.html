@@ -14,174 +14,28 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="style.css">
-	<link href="prism/prism-default.css" rel="stylesheet" />
+
+    <script src="script.js"></script>
+	
+    <link href="prism/prism-default.css" rel="stylesheet" />
 
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
 </head>
 <body>
+
     <nav class="navbar">
         <ul>
-            <li><a href="#introduction">Introduction</a></li>
-            <li><a href="#description">Description</a></li>
-            <li><a href="#implementation">Implementation</a></li>
-            <li><a href="#results">Results</a></li>
-            <!-- Aggiungi altre voci della navbar se necessario -->
+            <li><a href="index.html">Home</a></li>
+            <li><a href="Stokes.html">Stokes' law</a></li>
+            <li><a href="eulerian.html">Eulerian Fluid</a></li>
+            <li><a href="finitediff.html">Finite difference</a></li>
         </ul>
     </nav>
-    <header class="header">
-        
-        <div> 
-            <h1>Eulerian Fluid Simulator</h1>
-            <br>
-            <h2>A JavaScript-based 2D application designed to simulate advection within a wind tunnel environment for a non-viscous and incompressible fluid.</h2>
-        </div>
-
-    </header>
 
 
 
-    <section class="content">
-        
-        <div class="box">
-            <h1>Mathematical and Physical Introduction</h1>
-        </div>
-
-        <div class="box">
-            <h2>Lagrangian vs Eulerian Descriptions of Fluid flow</h2>
-            <div class="paragrafo">
-                <ul>
-                    <li>The <strong>Lagrangian specification of the flow field </strong> is a way of looking at fluid motion where the observer follows an individual fluid parcel as it moves through space and time.</li>
-                    <br>
-                    <li>The <strong>Eulerian specification of the flow field </strong> is a way of looking at fluid motion that focuses on specific locations in the space through which the fluid flows as time passes.</li>
-                </ul>
-            </div>
-            <figure>
-                <img src="imgs/evsl.png" alt="">
-                <figcaption>
-                    <p>Lagrangian vs Eulerian Descriptions of Fluid flow</p>
-                </figcaption>
-            </figure>
-
-            <h2>Velocity Field</h2>
-            <div class="paragrafo">
-                <p>Using an Eulerian approach, we divide the 2D space into a grid of side length h. We are employing the <strong>MAC (Marker-and-Cell) grid method</strong> that simulates fluid flow by periodically updating the velocity field.</p>
-                <p>Let's define the vector field \( \mathbf{u} = \begin{bmatrix} u \\ v \end{bmatrix} \) represented as a two-dimensional vector with components \(  u \) and \( v \).</p>
-                <p>Now we apply this vector to the sides of the grid as shown in the figure.</p>
-            </div>
-            <figure>
-                <img src="imgs/grid.png" alt="">
-                <figcaption>
-                    <p>Velocity Field</p>
-                </figcaption>
-            </figure>
-            <div class="paragrafo">
-                <p>Therefore, we will assign a scalar value \( s \) to every cell within the grid. Specifically, \( s=0 \) denotes a solid cell, while \( s=1 \) indicates a fluid cell.</p>
-            </div>
-            <pre><code class="language-javascript">
-                for (var i = 0; i < f.numX; i++) {
-                    for (var j = 0; j < f.numY; j++) {
-                        var s = 1.0;	// fluid
-                        if (i == 0 || j == 0 || j == f.numY-1) {
-                            s = 0.0;	// solid
-                        }
-                        f.s[i*n + j] = s
-                    }
-                }
-            </code></pre>
-
-            <h2>Project Hypotheses:</h2>
-            <div class="paragrafo">
-                <ul>
-                    <li>The fluid is assumed to be <strong>incompressible</strong>: \( \nabla \cdot \mathbf{u} =0 \)</li>
-                    <li>The fluid is assumed to be <strong>non-viscous</strong>: \( \mu=0 \)</li>
-                    <li>The simulation will be conducted in a <strong>2D</strong> environment.</li>
-                </ul>
-            </div>
-
-            <h2>Divergence and Incompressibility</h2>
-            <div class="paragrafo">
-                <p> <i>Definition: </i> in vector calculus, <strong>divergence</strong> is a scalar quantity that measures the outward flow rate of a vector field away from a given point within a region of space.</p>
-                <br>
-                <p>In two-dimensional Cartesian coordinates, the divergence of a continuously differentiable vector field is defined as the scalar-valued function: </p>
-                <p>$$ \text{div}(\mathbf{u}) = \nabla \cdot \mathbf{u} = \frac{\partial u}{\partial x} + \frac{\partial v}{\partial y} $$</p>
-            </div>
-            <figure>
-                <img style="width: 75%;" src="imgs/div.png" alt="">
-                <figcaption>
-                    <p>Divergence \( \lesseqgtr 0 \)</p>
-                </figcaption>
-            </figure>
-            <div class="paragrafo">
-                <p>To enforce the incompressibility of the fluid, we need to impose \( \nabla \cdot \mathbf{u} =0 \).</p>
-            </div>
-            <figure>
-                <img src="imgs/cell.png" alt="">
-                <figcaption>
-                    <p>A cell of the grid</p>
-                </figcaption>
-            </figure>
-            <div class="paragrafo">
-                <p>To approximate the divergence of a vector field \( \mathbf{u}  \) for each \( (i,j) \) cell of the grid we can approximate the partial derivatives in this way:</p>
-                <p>$$ \frac{\partial u}{\partial x} \approx \frac{u_{i+1,j} - u_{i,j}}{h} $$</p>
-                <p>$$  \frac{\partial v}{\partial y} \approx \frac{v_{i,j+1} - v_{i,j}}{h} $$</p>
-                <p>So, the divergence for the \( (i,j) \) cell will be: </p>
-                <p>$$ \text{div}(\mathbf{u}) \approx \frac{u_{i+1,j} - u_{i,j} + v_{i,j+1} - v_{i,j}}{h} $$</p>
-                <br>
-                <p>In the simulation we will simplify the divergence calculation by omitting the \( \frac{1}{h} \) factor. This simplification doesn't significantly impact the simulation's accuracy ( \(h\) is equal for each cell)</p>
-                <br>
-                <p>Therefore, we will multiply the divergence approximation by a parameter \(\omega\) known as the <strong>overrelaxation factor</strong>. This parameter aids in the convergence of the simulation under the assumption that \( 1 < \omega < 2 \), becouse it enhances the importance of the divergence term.</p>
-                <br>
-                <p>If we denote the divergence as \(d\) (and the overelaxation parameter as \(\omega\)) in our code it will be represented as: </p>
-                <p>$$d=\omega \cdot(u_{i+1,j} - u_{i,j} + v_{i,j+1} - v_{i,j})$$</p>
-            </div>
-            <pre><code class="language-javascript">
-                var d = this.u[(i+1)*n + j] - this.u[i*n + j] + this.v[i*n + j+1] - this.v[i*n + j];
-                d *= scene.overRelaxation;
-            </code></pre>
-            <div class="paragrafo">
-                <p>We have computed the divergence to update velocities at each iteration. During each iteration, the divergence of each cell will be redistributed among adjacent fluid cells.</p>
-                <br>
-                <p>The number of adjacent fluid cells to each \( (i,j) \) cell is stored in the variable \( ns \)</p>
-            </div>
-            <pre><code class="language-javascript">
-                var sx0 = this.s[(i-1)*n + j];
-                var sx1 = this.s[(i+1)*n + j];
-                var sy0 = this.s[i*n + j-1];
-                var sy1 = this.s[i*n + j+1];
-                var ns = sx0 + sx1 + sy0 + sy1;
-            </code></pre>
-            <div class="paragrafo">
-                <p>Now, we will now update the velocities as follows:</p>
-            </div>
-            <pre><code class="language-javascript">
-                this.u[i*n + j] += sx0 * d / ns ;
-                this.u[(i+1)*n + j] -= sx1 * d / ns;
-                this.v[i*n + j] += sy0 * d / ns;
-                this.v[i*n + j+1] -= sy1 * d / ns;
-            </code></pre>
-            
-
-
-            
-        </div>
-
-
-
-
-    </section>
-
-    
-    <!--
-        <p class=""> $$x=3$$</p>
-                <p>Un'altra formula: \( \sum_{i=1}^{n} i^2 = \frac{n(n+1)(2n+1)}{6} \)</p>
-                <pre><code class="language-javascript">
-                    var c = 2; 
-                </code></pre>
-    -->
-	
     <script src="prism/prism-default.js"></script>
-
 </body>
 </html>
