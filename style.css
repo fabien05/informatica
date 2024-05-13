@@ -114,7 +114,11 @@ html {
     margin: 2rem 0 0 0;
     border-bottom: var(--border);
     text-align: left;
+    transition: color 0.3s;
+}
 
+.box h2:hover {
+    color: #d4aa00; 
 }
 
 .paragrafo {                 /*paragrafo*/
@@ -161,7 +165,7 @@ html {
 
 .navbar {
     background-color: #757575; 
-    padding: 1rem;
+    padding: 0;
     display: flex;
     justify-content: center;
     box-shadow: var(--boxshadow);
@@ -169,11 +173,49 @@ html {
 
 .navbar ul {
     list-style-type: none;
-    display: flex;
-    gap: 2rem;
+    display: flex; 
 }
 
 .navbar li {
     font-size: 1.4rem;
+    padding: 1rem;
+    transition: background-color 0.3s;
 }
 
+.navbar a {
+    text-decoration: none; 
+    color: white; 
+    font-size: 1 rem ; 
+    transition: color 0.3s;
+}
+
+.navbar a:hover li {
+    color: #ffcc00; 
+}
+
+.navbar li:hover {
+    background-color: #555555; 
+}
+
+/* tabella footer */
+
+.foot table {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.foot table tr td {
+    margin: 0;
+    padding: 0;
+    width: 50%;
+    max-width: 50%;
+}
+
+.foot table tr td img {
+    width: auto;
+    height: 200px;
+    vertical-align: middle;
+
+}

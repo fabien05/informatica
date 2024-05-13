@@ -26,10 +26,11 @@
 <body>
     <nav class="navbar">
         <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="Stokes.html">Stokes' law</a></li>
-            <li><a href="eulerian.html">Eulerian Fluid</a></li>
-            <li><a href="finitediff.html">Finite difference</a></li>
+            <a href="index.html"><li>Home</li></a>
+            <a href="finitediff.html"><li>Finite difference</li></a>
+            <a href="Stokes.html"><li>Stokes' law</li></a>
+            <a href="eulerian.html"><li>Eulerian Fluid</li></a>
+            <a href="fonti.html"><li>Sources</li></a>
         </ul>
     </nav>
     <header class="header">
@@ -76,13 +77,13 @@
                 <p>Therefore, we will assign a scalar value \( s \) to every cell within the grid. Specifically, \( s=0 \) denotes a solid cell, while \( s=1 \) indicates a fluid cell.</p>
             </div>
             <pre><code class="language-javascript">
-                for (var i = 0; i < f.numX; i++) {
-                    for (var j = 0; j < f.numY; j++) {
+                for (var i = 0; i < numX; i++) {
+                    for (var j = 0; j < numY; j++) {
                         var s = 1.0;	// fluid
-                        if (i == 0 || j == 0 || j == f.numY-1) {
+                        if (i == 0 || j == 0 || j == numY-1) {
                             s = 0.0;	// solid
                         }
-                        f.s[i*n + j] = s
+                        s[i*n + j] = s
                     }
                 }
             </code></pre>
@@ -133,8 +134,8 @@
                 <p>$$d=\omega \cdot(u_{i+1,j} - u_{i,j} + v_{i,j+1} - v_{i,j})$$</p>
             </div>
             <pre><code class="language-javascript">
-                var d = this.u[(i+1)*n + j] - this.u[i*n + j] + this.v[i*n + j+1] - this.v[i*n + j];
-                d *= scene.overRelaxation;
+                var d = u[(i+1)*n + j] - u[i*n + j] + v[i*n + j+1] - v[i*n + j];
+                d *= overRelaxation;
             </code></pre>
             <div class="paragrafo">
                 <p>We have computed the divergence to update velocities at each iteration. During each iteration, the divergence of each cell will be redistributed among adjacent fluid cells.</p>
@@ -142,34 +143,27 @@
                 <p>The number of adjacent fluid cells to each \( (i,j) \) cell is stored in the variable \( ns \)</p>
             </div>
             <pre><code class="language-javascript">
-                var sx0 = this.s[(i-1)*n + j];
-                var sx1 = this.s[(i+1)*n + j];
-                var sy0 = this.s[i*n + j-1];
-                var sy1 = this.s[i*n + j+1];
+                var sx0 = s[(i-1)*n + j];
+                var sx1 = s[(i+1)*n + j];
+                var sy0 = s[i*n + j-1];
+                var sy1 = s[i*n + j+1];
                 var ns = sx0 + sx1 + sy0 + sy1;
             </code></pre>
             <div class="paragrafo">
                 <p>Now, we will now update the velocities as follows:</p>
             </div>
             <pre><code class="language-javascript">
-                this.u[i*n + j] += sx0 * d / ns ;
-                this.u[(i+1)*n + j] -= sx1 * d / ns;
-                this.v[i*n + j] += sy0 * d / ns;
-                this.v[i*n + j+1] -= sy1 * d / ns;
+                u[i*n + j] += sx0 * d / ns ;
+                u[(i+1)*n + j] -= sx1 * d / ns;
+                v[i*n + j] += sy0 * d / ns;
+                v[i*n + j+1] -= sy1 * d / ns;
             </code></pre>
             
-
-
-            
         </div>
-
-
-
 
     </section>
 	
     <script src="prism/prism-default.js"></script>
-    
 
 </body>
 </html>
