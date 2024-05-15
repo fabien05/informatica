@@ -18,22 +18,22 @@ showSlides(); // Avvia il carosello all'avvio della pagina
 
 // Funzione per tornare in cima alla pagina
 function scrollToTop() {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth' // Per uno scrolling animato
-    });
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth' // Per uno scrolling animato
+  });
 }
-  
+
 // Mostra o nasconde il pulsante in base allo scroll della pagina
 window.onscroll = function() {
-    scrollFunction();
+  scrollFunction();
 };
 
 function scrollFunction() {
-    const btn = document.getElementById('backToTopBtn');
-    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-        btn.style.display = 'block';
-    } else {
-        btn.style.display = 'none';
-    }
+  const btn = document.getElementsByClassName('backToTopBtn')[0]; // Accedi all'elemento specifico
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+      btn.style.display = 'block';
+  } else {
+      btn.style.display = 'none';
+  }
 }

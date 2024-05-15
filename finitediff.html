@@ -23,7 +23,7 @@
 </head>
 <body>
 
-    <button id="backToTopBtn" onclick="scrollToTop()"><strong>↑</strong></button>
+    <button class="backToTopBtn" onclick="scrollToTop()"><strong>↑</strong></button>
 
     <nav class="navbar">
         <ul>
@@ -45,6 +45,17 @@
 
     <section class="content">
         <div class="box">
+            
+            <h2>Finite difference</h2>
+            <div class="paragrafo">
+                <p>A <strong>finite difference</strong> is a mathematical expression of the form</p>
+                <p>$$f(x_0)-f(x_1)$$</p>
+                <p>If a finite difference is divided by \((x_0-x_1)\), one gets a difference quotient: </p>
+                <p>$$\frac{f(x_0)-f(x_1)}{x_0-x_1}$$</p>
+
+            </div>
+            
+            
             <h2>Taylor series</h2>
             <div class="paragrafo">
                 <p>Consider the Taylor series expansion of function \(f(x)\):</p>
@@ -246,6 +257,21 @@
 
         <div class="box">
             <h2>Appendix - Big <em>O</em> notation</h2>
+            <div class="paragrafo">
+                <p>Let \( f \) and \( g \) be two real functions defined in \( (a, b) \setminus \{x_0\} \) and infinitesimal as \( x \) tends to \( x_0 \in \widetilde{\mathbb{R}}\), that is,
+                    $$ \lim_{x \to x_0} f(x) = \lim_{x \to x_0} g(x) = 0 $$
+                    We say that \( f = o(g) \) (read as "f is little-o of g") if
+                    $$ \lim_{x \to x_0} \frac{f(x)}{g(x)} = 0 $$
+                    Note that saying \( f = o(g) \) roughly means that "the function \( f \) vanishes more rapidly than the function \( g \) as \( x \) tends to \( x_0 \)".
+                    </p>
+            </div>
+            <h2>Appendix - Little <em>o</em> notation</h2>
+            <div class="paragrafo">
+                <p>Let \( f \) and \( g \) be two real functions defined in \( (a, b) \setminus \{x_0\} \) whith \(x_0 \in \widetilde{\mathbb{R}}\). We say that \( f = O(g) \) (read as "f is big-O of g") if there exists \( M \in \mathbb{R} \), with \( M \neq 0 \), such that
+                    $$ \lim_{x \to x_0} \frac{f(x)}{g(x)} = M $$
+                    Saying that \( f = O(g) \) roughly means that "the function \( f \) behaves more or less the same way as the function \( g \) as \( x \) tends to \( x_0 \)".
+                </p>
+            </div>
         </div>
     </section>
     
