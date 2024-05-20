@@ -15,25 +15,26 @@ function showSlides() {
 
 showSlides(); // Avvia il carosello all'avvio della pagina
 
+// Ottieni il pulsante
+var mybutton = document.getElementById("backToTopBtn");
 
-// Funzione per tornare in cima alla pagina
-function scrollToTop() {
-  window.scrollTo({
-    top: 0,
-    behavior: 'smooth' // Per uno scrolling animato
-  });
-}
-
-// Mostra o nasconde il pulsante in base allo scroll della pagina
-window.onscroll = function() {
-  scrollFunction();
-};
+// Quando l'utente scorre verso il basso di 20px dalla parte superiore della pagina, mostra il pulsante
+window.onscroll = function() {scrollFunction()};
 
 function scrollFunction() {
-  const btn = document.getElementsByClassName('backToTopBtn')[0]; // Accedi all'elemento specifico
-  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-      btn.style.display = 'block';
-  } else {
-      btn.style.display = 'none';
-  }
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        mybutton.style.display = "block";
+    } else {
+        mybutton.style.display = "none";
+    }
+}
+
+// Quando l'utente clicca sul pulsante, scrolla verso l'alto della pagina
+mybutton.onclick = function() {
+  topFunction();
+};
+
+function topFunction() {
+    document.body.scrollTop = 0; // Per Safari
+    document.documentElement.scrollTop = 0; // Per Chrome, Firefox, IE e Opera
 }

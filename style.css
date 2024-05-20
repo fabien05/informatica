@@ -260,7 +260,7 @@ html {
 
 /*button*/
 
-.backToTopBtn {
+#backToTopBtn {
     display: none;
     position: fixed;
     bottom: 1.5rem;
@@ -276,9 +276,9 @@ html {
     font-size: 1.5rem;
     text-align: center;
     line-height: 2rem;
-  }
+}
   
-.backToTopBtn:hover {
+#backToTopBtn:hover {
     background-color: #555555;
     color: #ffcc00; 
 }

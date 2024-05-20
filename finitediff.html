@@ -23,7 +23,7 @@
 </head>
 <body>
 
-    <button class="backToTopBtn" onclick="scrollToTop()"><strong>↑</strong></button>
+    <button id="backToTopBtn"  title="Torna su"><strong>↑</strong></button>
 
     <nav class="navbar">
         <ul>
@@ -55,7 +55,11 @@
 
             </div>
             
-            
+            <h2>Approximation of Derivative</h2>
+            <figure>
+                <img style="width: 100%;" src="imgs/diff.PNG" alt="">
+            </figure>
+
             <h2>Taylor series</h2>
             <div class="paragrafo">
                 <p>Consider the Taylor series expansion of function \(f(x)\):</p>
@@ -65,11 +69,6 @@
                 \end{align*}$$
                 </p>  
             </div>
-
-            <h2>Approximation of Derivative</h2>
-            <figure>
-                <img style="width: 100%;" src="imgs/diff.PNG" alt="">
-            </figure>
 
             <h2>Forward difference</h2>
             <div class="paragrafo">
@@ -258,6 +257,13 @@
         <div class="box">
             <h2>Appendix - Big <em>O</em> notation</h2>
             <div class="paragrafo">
+                <p>Let \( f \) and \( g \) be two real functions defined in \( (a, b) \setminus \{x_0\} \) whith \(x_0 \in \widetilde{\mathbb{R}}\). We say that \( f = O(g) \) (read as "f is big-O of g") if there exists \( M \in \mathbb{R} \), with \( M \neq 0 \), such that
+                    $$ \lim_{x \to x_0} \frac{f(x)}{g(x)} = M $$
+                    Saying that \( f = O(g) \) roughly means that "the function \( f \) behaves more or less the same way as the function \( g \) as \( x \) tends to \( x_0 \)".
+                </p>
+            </div>
+            <h2>Appendix - Little <em>o</em> notation</h2>
+            <div class="paragrafo">
                 <p>Let \( f \) and \( g \) be two real functions defined in \( (a, b) \setminus \{x_0\} \) and infinitesimal as \( x \) tends to \( x_0 \in \widetilde{\mathbb{R}}\), that is,
                     $$ \lim_{x \to x_0} f(x) = \lim_{x \to x_0} g(x) = 0 $$
                     We say that \( f = o(g) \) (read as "f is little-o of g") if
@@ -265,13 +271,7 @@
                     Note that saying \( f = o(g) \) roughly means that "the function \( f \) vanishes more rapidly than the function \( g \) as \( x \) tends to \( x_0 \)".
                     </p>
             </div>
-            <h2>Appendix - Little <em>o</em> notation</h2>
-            <div class="paragrafo">
-                <p>Let \( f \) and \( g \) be two real functions defined in \( (a, b) \setminus \{x_0\} \) whith \(x_0 \in \widetilde{\mathbb{R}}\). We say that \( f = O(g) \) (read as "f is big-O of g") if there exists \( M \in \mathbb{R} \), with \( M \neq 0 \), such that
-                    $$ \lim_{x \to x_0} \frac{f(x)}{g(x)} = M $$
-                    Saying that \( f = O(g) \) roughly means that "the function \( f \) behaves more or less the same way as the function \( g \) as \( x \) tends to \( x_0 \)".
-                </p>
-            </div>
+
         </div>
     </section>
     
